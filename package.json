@@ -1,0 +1,38 @@
+{
+  "name": "gateways-nodejs",
+  "version": "1.0.0",
+  "description": "gateways test project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ./index.js",
+    "watch": "npx nodemon ./index.js",
+    "start:front": "cd ./front && npm run start",
+    "start": "export BACKEND_PORT=7000 && npx concurrently \"npm:watch\" \"npx wait-on '$(echo 'http://localhost:$BACKEND_PORT')' && npm run start:front\"",
+    "start:all": "npx concurrently \"npm:watch\" \"npx wait-on http://localhost:6000 && npm run start:front\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "test",
+    "musala",
+    "gateways",
+    "nodejs",
+    "react",
+    "mongodb"
+  ],
+  "author": "Dariel Ramos",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.0.0",
+    "express": "^4.17.2",
+    "wait-on": "^6.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "nodemonConfig": {
+    "delay": 2500,
+    "ignore": [
+      "./front/**"
+    ]
+  }
+}
