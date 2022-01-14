@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Gateway = require('./domain/entities/gateway');
+const Gateway = require('../domain/entities/gateway');
 const faker = require('@faker-js/faker');
-const AppConfig = require('./config/app');
+const AppConfig = require('../config/app');
 
 let linkedDevices = 0;
 const maxGateways = faker.datatype.number({ min: 5, max: 20 });

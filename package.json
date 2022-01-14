@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node ./index.js",
     "watch": "npx nodemon ./index.js",
+    "seed": "node ./database/seed.js",
     "start:front": "cd ./front && npm run start",
     "start": "export BACKEND_PORT=7000 && npx concurrently \"npm:watch\" \"npx wait-on '$(echo 'http://localhost:$BACKEND_PORT')' && npm run start:front\"",
     "start:all": "npx concurrently \"npm:watch\" \"npx wait-on http://localhost:6000 && npm run start:front\"",
