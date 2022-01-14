@@ -1,10 +1,12 @@
 const BaseController = require('./base.controller');
+const GatewayRepository = require('../../domain/repositories/gateway.repository');
 
-module.exports = class GatewayController extends BaseController{
+module.exports = class GatewayController extends BaseController {
   path = '/gateways';
 
   constructor() {
     super();
+    this.gatewayRepository = new GatewayRepository();
   }
 
   initializeRoutes() {
@@ -12,11 +14,21 @@ module.exports = class GatewayController extends BaseController{
     this.router.get('/:id', this.show.bind(this));
   }
 
-  all(req, resp) {
-    return resp.status(200).send({ok: true, data: []});
+  async all(req, resp) {
+    try {
+      const data = await this.gatewayRepository.getAll();
+      return resp.status(200).send({ok: true, data });
+    } catch (error) {
+      resp.status(500).send({ ok: false, error });
+    }
   }
 
-  show(req, resp) {
-    return resp.status(200).send({ok: true, data: null});
+  async show(req, resp) {
+    try {
+      const gateway = await this.gatewayRepository.findById(req.params.id)
+      return resp.status(200).send({ok: true, data: gateway});
+    } catch (error) {
+      resp.status(500).send({ ok: false, error });
+    }
   }
 }

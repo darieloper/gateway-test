@@ -1,8 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('./http/middlewares/logger.middleware');
-
-const MONGODB_CONNECTION = process.env.MONGODB_CONNECTION || 'mongodb://localhost:27017';
+const AppConfig = require('./config/app')
 
 module.exports = class App {
   basePath = '/api';
@@ -33,7 +32,7 @@ module.exports = class App {
 
   run() {
     const runApp = async () => {
-      await mongoose.connect(MONGODB_CONNECTION);
+      await mongoose.connect(AppConfig.MONGODB_CONNECTION);
       this.listen();
     }
 

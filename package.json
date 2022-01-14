@@ -28,6 +28,7 @@
     "wait-on": "^6.0.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^5.5.3",
     "nodemon": "^2.0.15"
   },
   "nodemonConfig": {
