@@ -6,6 +6,6 @@ const GatewaySchema = new mongoose.Schema({
   name: { type: String, required: true },
   IPv4: { type: String, required: true},
   devices: [DeviceSchema]
-}, { _id: true, skipVersioning: true });
+}, { _id: true, versionKey: false });
 
 module.exports = mongoose.model('Gateway', GatewaySchema);
