@@ -1,12 +1,10 @@
-const express = require('express');
+const App = require('./app');
+const GatewayController = require('./http/controllers/gateway.controller');
 
-const app = express();
 const port = process.env.BACKEND_PORT || 6000;
 
-app.get('/', (req, res) => {
-  res.status(200).send({success: true});
-});
+const app = new App(port, [
+  new GatewayController()
+]);
 
-app.listen(port, function () {
-  console.log(`Start listening server at port: ${port}.`)
-});
+app.run();
