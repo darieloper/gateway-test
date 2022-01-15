@@ -17,7 +17,7 @@ const runSeeder = async () => {
 
   for (let i = 0; i < maxGateways; i++) {
     devices = [];
-    maxDevices = faker.datatype.number({ min: 1, max: 10 });
+    maxDevices = faker.datatype.number({ min: 1, max: 8 });
 
     for (let j = 0; j < maxDevices; j++) {
       let created = new Date();

@@ -21,16 +21,22 @@ module.exports = class GatewayController extends BaseController {
       const data = await this.gatewayRepository.getAll();
       return resp.status(200).send({ ok: true, data });
     } catch (error) {
-      resp.status(500).send({ ok: false, error });
+      resp.status(500).send({ ok: false, data: null, error });
     }
   }
 
   async show(req, resp) {
     try {
       const gateway = await this.gatewayRepository.findById(req.params.id)
+
+      if (gateway === null) {
+        resp.status(500).send({ ok: false, data: null, error: { message: 'Gateway not found.' } });
+        return;
+      }
+
       return resp.status(200).send({ ok: true, data: gateway });
     } catch (error) {
-      resp.status(500).send({ ok: false, error });
+      resp.status(500).send({ ok: false, data: null,  error });
     }
   }
 
@@ -39,13 +45,13 @@ module.exports = class GatewayController extends BaseController {
       const gateway = await this.gatewayRepository.addDevice(req.params.id, req.body);
 
       if (gateway === null) {
-        resp.status(500).send({ ok: false, error: { message: 'Gateway not found.' } });
+        resp.status(500).send({ ok: false, data: null, error: { message: 'Gateway not found.' } });
         return;
       }
 
       return resp.status(200).send({ ok: true, data: gateway });
     } catch (error) {
-      resp.status(500).send({ ok: false, error });
+      resp.status(500).send({ ok: false, data: null, error });
     }
   }
 
@@ -54,13 +60,17 @@ module.exports = class GatewayController extends BaseController {
       const gateway = await this.gatewayRepository.removeDevice(req.params.id, req.params.deviceId);
 
       if (gateway === null) {
-        resp.status(500).send({ ok: false, error: { message: 'Gateway not found with that specific Device UID.' } });
+        resp.status(500).send({
+          ok: false,
+          data: null,
+          error: { message: 'Gateway not found with that specific Device UID.' }
+        });
         return;
       }
 
       return resp.status(200).send({ ok: true, data: gateway });
     } catch (error) {
-      resp.status(500).send({ ok: false, error });
+      resp.status(500).send({ ok: false, data: null, error });
     }
   }
 }
