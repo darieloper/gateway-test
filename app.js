@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('./http/middlewares/logger.middleware');
 const AppConfig = require('./config/app')
+const cors = require('cors')
 
 module.exports = class App {
   basePath = '/api';
@@ -16,7 +17,9 @@ module.exports = class App {
   }
 
   initializeMiddlewares() {
+    this.app.use(cors());
     this.app.use(express.json());
+
     if (process.env.NODE_ENV !== 'test') {
       this.app.use(logger);
     }

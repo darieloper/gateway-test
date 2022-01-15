@@ -1,21 +1,18 @@
-import logo from './logo.svg';
-import Button from 'react-bootstrap/Button';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import AppHeader from './components/AppHeader'
+import {Alert, Card, Container} from 'react-bootstrap'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-
-        <Button>Learn Bootstrap</Button>
-      </header>
+    <div>
+      <AppHeader />
+      <Container fluid>
+        <Alert variant="info" className="mt-2">
+          Welcome, you can start visiting our <b>Gateway List</b> link!
+        </Alert>
+      </Container>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
