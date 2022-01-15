@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const DeviceSchema = require('./device');
+const AppConfig = require('../../config/app');
 
 const GatewaySchema = new mongoose.Schema({
   serialNumber: {
@@ -22,7 +23,13 @@ const GatewaySchema = new mongoose.Schema({
     },
     required: [true, 'IPv4 is required.']
   },
-  devices: [DeviceSchema]
+  devices: {
+    type: [DeviceSchema],
+    validate: [
+      v => v.length <= AppConfig.MAX_DEVICES_PER_GATEWAY,
+      `The max devices per gateway is ${AppConfig.MAX_DEVICES_PER_GATEWAY}.`
+    ]
+  }
 }, { _id: true, versionKey: false });
 
 module.exports = mongoose.model('Gateway', GatewaySchema);

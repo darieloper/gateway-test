@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const DeviceSchema = new mongoose.Schema({
+module.exports = new mongoose.Schema({
   uid: {
     type: Number,
     required: [true, 'UID is required.']
@@ -16,5 +16,3 @@ const DeviceSchema = new mongoose.Schema({
   },
   created: { type: Date, default: new Date() },
 }, { _id: false });
-
-module.exports = DeviceSchema
