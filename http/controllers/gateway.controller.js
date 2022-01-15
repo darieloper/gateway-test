@@ -12,7 +12,8 @@ module.exports = class GatewayController extends BaseController {
   initializeRoutes() {
     this.router.get('/', this.all.bind(this));
     this.router.get('/:id', this.show.bind(this));
-    this.router.put('/:id/add-device', this.addDevice.bind(this));
+    this.router.post('/:id/add-device', this.addDevice.bind(this));
+    this.router.delete('/:id/remove-device/:deviceId', this.removeDevice.bind(this));
   }
 
   async all(req, resp) {
@@ -36,6 +37,26 @@ module.exports = class GatewayController extends BaseController {
   async addDevice(req, resp) {
     try {
       const gateway = await this.gatewayRepository.addDevice(req.params.id, req.body);
+
+      if (gateway === null) {
+        resp.status(500).send({ ok: false, error: { message: 'Gateway not found.' } });
+        return;
+      }
+
+      return resp.status(200).send({ ok: true, data: gateway });
+    } catch (error) {
+      resp.status(500).send({ ok: false, error });
+    }
+  }
+
+  async removeDevice(req, resp) {
+    try {
+      const gateway = await this.gatewayRepository.removeDevice(req.params.id, req.params.deviceId);
+
+      if (gateway === null) {
+        resp.status(500).send({ ok: false, error: { message: 'Gateway not found with that specific Device UID.' } });
+        return;
+      }
 
       return resp.status(200).send({ ok: true, data: gateway });
     } catch (error) {
