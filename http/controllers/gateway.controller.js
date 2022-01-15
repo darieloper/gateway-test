@@ -12,6 +12,7 @@ module.exports = class GatewayController extends BaseController {
   initializeRoutes() {
     this.router.get('/', this.all.bind(this));
     this.router.get('/:id', this.show.bind(this));
+    this.router.post('/', this.create.bind(this));
     this.router.post('/:id/add-device', this.addDevice.bind(this));
     this.router.delete('/:id/remove-device/:deviceId', this.removeDevice.bind(this));
   }
@@ -37,6 +38,19 @@ module.exports = class GatewayController extends BaseController {
       return resp.status(200).send({ ok: true, data: gateway });
     } catch (error) {
       resp.status(500).send({ ok: false, data: null,  error });
+    }
+  }
+
+  async create(req, resp) {
+    try {
+      const gateway = await this.gatewayRepository.store(req.body);
+
+      resp.status(200).send({ ok: true, data: gateway });
+    } catch (error) {
+      const errorData = error.code === 11000
+        ? { message: `Exist already a Gateway with the same Serial Number: ${req.body.serialNumber}`}
+        : error;
+      resp.status(500).send({ ok: false, data: null,  error: errorData });
     }
   }
 

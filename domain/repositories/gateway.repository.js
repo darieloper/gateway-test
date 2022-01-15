@@ -28,6 +28,10 @@ class GatewayRepository  extends BaseRepository {
       { new: true }
     );
   }
+
+  async store(gateway) {
+    return await this.model(gateway).save();
+  }
 }
 
 module.exports = GatewayRepository;
