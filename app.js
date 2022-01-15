@@ -17,7 +17,9 @@ module.exports = class App {
 
   initializeMiddlewares() {
     this.app.use(express.json());
-    this.app.use(logger);
+    if (process.env.NODE_ENV !== 'test') {
+      this.app.use(logger);
+    }
   }
 
   initializeControllers() {
@@ -39,7 +41,7 @@ module.exports = class App {
     runApp().catch((error) => console.log('Error', error));
   }
 
-  get appInstance() {
+  get expressInstance() {
     return this.app
   }
 }

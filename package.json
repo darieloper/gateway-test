@@ -10,7 +10,7 @@
     "start:front": "cd ./front && npm run start",
     "start": "export BACKEND_PORT=7000 && npx concurrently \"npm:watch\" \"npx wait-on '$(echo 'http://localhost:$BACKEND_PORT')' && npm run start:front\"",
     "start:all": "npx concurrently \"npm:watch\" \"npx wait-on http://localhost:6000 && npm run start:front\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test && jest tests"
   },
   "keywords": [
     "test",
@@ -25,7 +25,9 @@
   "dependencies": {
     "concurrently": "^7.0.0",
     "express": "^4.17.2",
+    "jest": "^27.4.7",
     "mongoose": "^6.1.6",
+    "supertest": "^6.2.1",
     "wait-on": "^6.0.0"
   },
   "devDependencies": {
@@ -33,9 +35,9 @@
     "nodemon": "^2.0.15"
   },
   "nodemonConfig": {
-    "delay": 2500,
     "ignore": [
-      "./front/**"
+      "front/**",
+      "tests/**"
     ]
   }
 }

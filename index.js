@@ -7,4 +7,8 @@ const app = new App(port, [
   new GatewayController()
 ]);
 
-app.run();
+if (process.env.NODE_ENV === 'test') {
+  module.exports = app.expressInstance
+} else {
+  app.run();
+}
