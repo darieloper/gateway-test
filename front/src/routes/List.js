@@ -102,6 +102,7 @@ export default function GatewayList() {
           <Row>
             <Col md={3}>
               <FormControl readOnly={loading}
+                           type="search"
                            placeholder="Search"
                            value={criteria}
                            onChange={(event) => updateCriteria(event)}/>

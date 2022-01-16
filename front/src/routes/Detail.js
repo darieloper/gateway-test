@@ -1,15 +1,18 @@
-import {Button, Card, Col, Container, Row, Spinner, Table} from 'react-bootstrap'
+import {Button, Card, Col, Container, Form, Modal, Row, Spinner, Table} from 'react-bootstrap'
 import AppHeader from '../components/AppHeader'
 import {useParams} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import Confirm from '../components/Confirm'
-import {ToastContainer, toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import {toast, ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import React from 'react'
+import CreateDevice from '../components/CreateDevice'
 
 export default function GatewayDetail() {
   const [loading, setLoading] = useState(true)
   const [gatewayData, setGatewayData] = useState({})
+  const [showCreate, setShowCreate] = useState(false)
   const {id} = useParams()
 
   const hideLoading = () => setLoading(false)
@@ -88,9 +91,9 @@ export default function GatewayDetail() {
         setGatewayData(json.data)
         toast.success('The Device was deleted successfully!')
       }).catch(error => {
-        hideLoading()
-        toast.error('Oops, sorry the operation was incorrect!')
-        console.log(error)
+      hideLoading()
+      toast.error('Oops, sorry the operation was incorrect!')
+      console.log(error)
     })
   }
 
@@ -103,7 +106,8 @@ export default function GatewayDetail() {
             <Card.Title>
               {loading && <Spinner animation="border" size="sm" variant="primary"/>}
               <span> Gateway</span> <span className="fw-normal">{id}</span>
-              <Button size="sm" variant="outline-success" className="float-end" disabled={loading}>Add Device</Button>
+              <Button size="sm" variant="outline-success" onClick={() => setShowCreate(true)}
+                      className="float-end" disabled={loading}>Add Device</Button>
               <Button href="/gateways" size="sm" variant="primary" className="float-end me-2">Go Back</Button>
             </Card.Title>
             <hr/>
@@ -147,7 +151,8 @@ export default function GatewayDetail() {
           </Card.Body>
         </Card>
       </Container>
-      <ToastContainer />
+      <ToastContainer/>
+      <CreateDevice show={showCreate} onHide={() => setShowCreate(false)} />
     </>
   )
 }
