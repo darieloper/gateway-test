@@ -2,18 +2,19 @@ import {Button, Modal} from 'react-bootstrap'
 import React, {useState} from 'react'
 import SimpleTooltip from './SimpleTooltip'
 
-function Confirm({
-                   modalTitle,
-                   modalText,
-                   tooltip,
-                   children,
-                   onConfirm,
-                   closeText = 'Cancel',
-                   okText = 'Confirm Delete',
-                   cancelVariant = 'default',
-                   okVariant = 'danger',
-                   buttonText = 'Remove',
-                 }
+function Confirm(
+  {
+    modalTitle,
+    modalText,
+    tooltip,
+    children,
+    onConfirm,
+    closeText = 'Cancel',
+    okText = 'Confirm Delete',
+    closeVariant = 'default',
+    okVariant = 'danger',
+    buttonText = 'Remove',
+  }
 ) {
   const [show, setShow] = useState(false)
 
@@ -38,7 +39,7 @@ function Confirm({
     </Modal.Header>
     <Modal.Body>{modalText}</Modal.Body>
     <Modal.Footer>
-      <Button variant="{cancelVariant}" onClick={handleClose}>
+      <Button variant={closeVariant} onClick={handleClose}>
         {closeText}
       </Button>
       <Button variant={okVariant} onClick={handleOk}>
