@@ -4,11 +4,13 @@ import {useEffect, useState} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import SimpleTooltip from '../components/SimpleTooltip'
+import CreateGateway from '../components/CreateGateway'
 
 export default function GatewayList() {
   const [loading, setLoading] = useState(true)
   const [criteria, setCriteria] = useState('')
   const [gatewayData, setGatewayData] = useState([])
+  const [showCreate, setShowCreate] = useState(false)
 
   const hideLoading = () => setLoading(false)
 
@@ -30,6 +32,8 @@ export default function GatewayList() {
       console.log(error)
     })
   }
+
+  const handleCloseAddModal = () => setShowCreate(false)
 
   const updateCriteria = (event) => setCriteria(event.target.value)
 
@@ -110,6 +114,7 @@ export default function GatewayList() {
             <Col>
               <Button variant="outline-success"
                       disabled={loading}
+                      onClick={() => setShowCreate(true)}
                       className="float-end">Add Gateway</Button>
             </Col>
           </Row>
@@ -131,6 +136,8 @@ export default function GatewayList() {
           </tbody>
         </Table>
       </Container>
+
+      <CreateGateway onHide={handleCloseAddModal} show={showCreate} />
     </>
   )
 }

@@ -1,10 +1,14 @@
-import {useState} from 'react'
-import React from 'react'
+import {useState, createRef} from 'react'
 import {Button, Form, Modal} from 'react-bootstrap'
 import axios from 'axios'
 import {toast} from 'react-toastify'
 
-export default function CreateDevice(props) {
+export default function CreateDevice({
+  show = false,
+  onHide = () => {},
+  onCreated = () => {},
+  gatewayId
+}) {
   const initialFormState = {
     uid: '',
     vendor: '',
@@ -13,13 +17,13 @@ export default function CreateDevice(props) {
   const [sending, setSending] = useState(false)
   const [validated, setValidated] = useState(false)
   const [formData, setFormData] = useState(initialFormState)
-  const formRef = React.createRef()
+  const formRef = createRef()
 
   const handleClose = () => {
     setValidated(false)
     setFormData(initialFormState)
-    if (typeof props.onHide === 'function') {
-      props.onHide()
+    if (typeof onHide === 'function') {
+      onHide()
     }
   }
 
@@ -38,7 +42,7 @@ export default function CreateDevice(props) {
 
     if (isValid) {
       setSending(true)
-      axios.post('http://localhost:3001/api/gateways/' + props.gatewayId + '/add-device', formData)
+      axios.post('http://localhost:3001/api/gateways/' + gatewayId + '/add-device', formData)
         .then(({data: json}) => {
           setSending(false)
           if (!json.ok) {
@@ -47,8 +51,8 @@ export default function CreateDevice(props) {
             return
           }
 
-          if (typeof props.onCreated === 'function') {
-            props.onCreated()
+          if (typeof onCreated === 'function') {
+            onCreated()
           }
           handleClose()
         }).catch(error => {
@@ -60,7 +64,7 @@ export default function CreateDevice(props) {
   }
 
   return (
-    <Modal show={props.show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Add Device</Modal.Title>
       </Modal.Header>
