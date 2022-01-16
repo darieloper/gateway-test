@@ -37,7 +37,6 @@ export default function CreateDevice(props) {
     setValidated(true)
 
     if (isValid) {
-      // handleClose()
       setSending(true)
       axios.post('http://localhost:3001/api/gateways/' + props.gatewayId + '/add-device', formData)
         .then(({data: json}) => {
@@ -69,13 +68,15 @@ export default function CreateDevice(props) {
         <Form noValidate validated={validated} onSubmit={handleSubmit} ref={formRef} autoComplete="off">
           <Form.Group className="mb-3" controlId="uidGroup">
             <Form.Label>UID</Form.Label>
-            <Form.Control required type="number" name="uid" value={formData.uid} onChange={handleChangeValue}/>
+            <Form.Control required type="number" name="uid" disabled={sending}
+                          value={formData.uid} onChange={handleChangeValue}/>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             <Form.Control.Feedback type="invalid">This field is required.</Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="vendorGroup">
             <Form.Label>Vendor</Form.Label>
-            <Form.Control value={formData.vendor} name="vendor" onChange={handleChangeValue}/>
+            <Form.Control value={formData.vendor} name="vendor"
+                          onChange={handleChangeValue} disabled={sending}/>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="statusGroup">
@@ -88,6 +89,7 @@ export default function CreateDevice(props) {
               defaultChecked
               id="radio-online"
               value="online"
+              disabled={sending}
               onChange={handleChangeValue}
             />
             <Form.Check
@@ -97,6 +99,7 @@ export default function CreateDevice(props) {
               type="radio"
               id="radio-offline"
               value="offline"
+              disabled={sending}
               onChange={handleChangeValue}
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -107,7 +110,7 @@ export default function CreateDevice(props) {
         <Button variant="default" onClick={handleClose}>
           Close
         </Button>
-        <Button type="submit" variant="primary" onClick={handleSubmit}>
+        <Button type="submit" variant="primary" onClick={handleSubmit} disabled={sending}>
           Save Changes
         </Button>
       </Modal.Footer>
