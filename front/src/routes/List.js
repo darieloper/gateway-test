@@ -95,7 +95,7 @@ export default function GatewayList() {
   )
 
   return (
-    <div>
+    <>
       <AppHeader/>
       <Container className="mt-3">
         <Form className="mb-2">
@@ -130,6 +130,6 @@ export default function GatewayList() {
           </tbody>
         </Table>
       </Container>
-    </div>
+    </>
   )
 }
