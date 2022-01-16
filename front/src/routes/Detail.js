@@ -8,6 +8,7 @@ import {toast, ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import React from 'react'
 import CreateDevice from '../components/CreateDevice'
+const maxDevices = process.env.MAX_DEVICES_PER_GATEWAY || 10
 
 export default function GatewayDetail() {
   const [loading, setLoading] = useState(true)
@@ -103,6 +104,14 @@ export default function GatewayDetail() {
     })
   }
 
+  const handleAddDevice = () => {
+    if (gatewayData.devices && gatewayData.devices.length === maxDevices) {
+      toast.error(`You have reached the limit of devices (${maxDevices}) that can be associated to one Gateway.`)
+      return
+    }
+    setShowCreate(true)
+  }
+
   return (
     <>
       <AppHeader/>
@@ -112,7 +121,7 @@ export default function GatewayDetail() {
             <Card.Title>
               {loading && <Spinner animation="border" size="sm" variant="primary"/>}
               <span> Gateway</span> <span className="fw-normal">{id}</span>
-              <Button size="sm" variant="outline-success" onClick={() => setShowCreate(true)}
+              <Button size="sm" variant="outline-success" onClick={handleAddDevice}
                       className="float-end" disabled={loading}>Add Device</Button>
               <Button href="/gateways" size="sm" variant="primary" className="float-end me-2">Go Back</Button>
             </Card.Title>
