@@ -77,6 +77,12 @@ export default function GatewayDetail() {
     </tr>
   )
 
+  const handleCreated = () => {
+    toast.success('New Device added correctly!')
+    setLoading(true)
+    fetchData()
+  }
+
   const handleConfirm = (deviceId) => {
     setLoading(true)
     axios.delete('http://localhost:3001/api/gateways/' + id + '/remove-device/' + deviceId)
@@ -152,7 +158,8 @@ export default function GatewayDetail() {
         </Card>
       </Container>
       <ToastContainer/>
-      <CreateDevice show={showCreate} onHide={() => setShowCreate(false)} />
+      <CreateDevice show={showCreate} onCreated={handleCreated}
+                    onHide={() => setShowCreate(false)} gatewayId={id} />
     </>
   )
 }
