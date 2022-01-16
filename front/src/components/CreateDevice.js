@@ -2,6 +2,7 @@ import {useState, createRef} from 'react'
 import {Button, Form, Modal} from 'react-bootstrap'
 import axios from 'axios'
 import {toast} from 'react-toastify'
+import * as AppConfig from '../config/app'
 
 export default function CreateDevice({
   show = false,
@@ -42,7 +43,7 @@ export default function CreateDevice({
 
     if (isValid) {
       setSending(true)
-      axios.post('http://localhost:3001/api/gateways/' + gatewayId + '/add-device', formData)
+      axios.post(AppConfig.baseUrl + gatewayId + '/add-device', formData)
         .then(({data: json}) => {
           setSending(false)
           if (!json.ok) {

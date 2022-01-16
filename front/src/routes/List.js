@@ -5,6 +5,8 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import SimpleTooltip from '../components/SimpleTooltip'
 import CreateGateway from '../components/CreateGateway'
+import {toast, ToastContainer} from 'react-toastify'
+import {baseUrl} from '../config/app'
 
 export default function GatewayList() {
   const [loading, setLoading] = useState(true)
@@ -19,7 +21,7 @@ export default function GatewayList() {
   }, [])
 
   const fetchData = () => {
-    axios.get('http://localhost:3001/api/gateways').then(({data}) => {
+    axios.get(baseUrl).then(({data}) => {
       hideLoading()
       if (!data.ok) {
         console.log(data.error)
@@ -31,6 +33,12 @@ export default function GatewayList() {
       hideLoading()
       console.log(error)
     })
+  }
+
+  const handleOnCreateGateway = () => {
+    toast.success('A new Gateway was created successfully')
+    setLoading(true)
+    fetchData()
   }
 
   const handleCloseAddModal = () => setShowCreate(false)
@@ -136,8 +144,8 @@ export default function GatewayList() {
           </tbody>
         </Table>
       </Container>
-
-      <CreateGateway onHide={handleCloseAddModal} show={showCreate} />
+      <ToastContainer />
+      <CreateGateway onHide={handleCloseAddModal} show={showCreate} onCreated={handleOnCreateGateway} />
     </>
   )
 }

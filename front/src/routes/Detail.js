@@ -8,7 +8,7 @@ import {toast, ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import React from 'react'
 import CreateDevice from '../components/CreateDevice'
-const maxDevices = process.env.MAX_DEVICES_PER_GATEWAY || 10
+import * as AppConfig from '../config/app'
 
 export default function GatewayDetail() {
   const [loading, setLoading] = useState(true)
@@ -24,7 +24,7 @@ export default function GatewayDetail() {
   }
 
   const fetchData = () => {
-    axios.get('http://localhost:3001/api/gateways/' + id)
+    axios.get(AppConfig.baseUrl + id)
       .then(({data: json}) => {
         hideLoading()
         if (!json.ok) {
@@ -86,7 +86,7 @@ export default function GatewayDetail() {
 
   const handleConfirm = (deviceId) => {
     setLoading(true)
-    axios.delete('http://localhost:3001/api/gateways/' + id + '/remove-device/' + deviceId)
+    axios.delete(AppConfig.baseUrl + id + '/remove-device/' + deviceId)
       .then(({data: json}) => {
         hideLoading()
         if (!json.ok) {
@@ -105,8 +105,8 @@ export default function GatewayDetail() {
   }
 
   const handleAddDevice = () => {
-    if (gatewayData.devices && gatewayData.devices.length === maxDevices) {
-      toast.error(`You have reached the limit of devices (${maxDevices}) that can be associated to one Gateway.`)
+    if (gatewayData.devices && gatewayData.devices.length === AppConfig.maxDevices) {
+      toast.error(`You have reached the limit of devices (${AppConfig.maxDevices}) that can be associated to one Gateway.`)
       return
     }
     setShowCreate(true)
