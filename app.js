@@ -33,11 +33,15 @@ module.exports = class App {
       return
     }*/
 
+    console.log('starting serving static files');
     this.app.use(express.static(path.join(__dirname, 'front', 'build')));
 
+    console.log('starting redirecting for react router');
     this.app.get('*', function (req, res) {
       res.sendFile(path.join(__dirname, 'front', 'build', 'index.html'));
     });
+
+    console.log('end static resources initialation');
   }
 
   initializeControllers() {
