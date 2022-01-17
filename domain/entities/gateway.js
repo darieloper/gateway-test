@@ -32,4 +32,4 @@ const GatewaySchema = new mongoose.Schema({
   }
 }, { _id: true, versionKey: false });
 
-module.exports = mongoose.model('Gateway', GatewaySchema);
+module.exports = mongoose.model('Gateway', GatewaySchema, AppConfig.MONGODB_COLLECTION);

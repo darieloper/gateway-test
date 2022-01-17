@@ -58,8 +58,13 @@ export default function CreateDevice({
           handleClose()
         }).catch(error => {
           setSending(false)
-          toast.error('Oops, sorry the operation was incorrect!')
           console.log(error)
+          const response = error.response
+          if (response.data && response.data.error && response.data.error.message) {
+            toast.error(error.response.data.error.message)
+            return
+          }
+          toast.error('Oops, sorry the operation was incorrect!')
       })
     }
   }

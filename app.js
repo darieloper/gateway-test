@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const logger = require('./http/middlewares/logger.middleware');
 const AppConfig = require('./config/app')
 const cors = require('cors')
+const path = require('path')
 
 module.exports = class App {
   basePath = '/api';
@@ -14,6 +15,7 @@ module.exports = class App {
 
     this.initializeMiddlewares();
     this.initializeControllers();
+    this.initializeStaticResources();
   }
 
   initializeMiddlewares() {
@@ -23,6 +25,18 @@ module.exports = class App {
     if (process.env.NODE_ENV !== 'test') {
       this.app.use(logger);
     }
+  }
+
+  initializeStaticResources() {
+    if (process.env.NODE_ENV !== 'prod') {
+      return
+    }
+
+    this.app.use(express.static(path.join(__dirname, 'front', 'build')));
+
+    this.app.get('*', function (req, res) {
+      res.sendFile(path.join(__dirname, 'front', 'build', 'index.html'));
+    });
   }
 
   initializeControllers() {

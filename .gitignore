@@ -1,3 +1,4 @@
 /node_modules
 /.idea
 /front/node_modules/
+/front/build/

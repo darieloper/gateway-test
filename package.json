@@ -8,8 +8,11 @@
     "watch": "npx nodemon ./index.js",
     "seed": "node ./database/seed.js",
     "start:front": "cd ./front && npm run start",
+    "build:front": "cd ./front && npm run build",
     "start:all": "npx concurrently \"npm:dev\" \"npm run start:front\"",
-    "test": "NODE_ENV=test && npm run seed && jest tests"
+    "test": "NODE_ENV=test && npm run seed && jest tests",
+    "build": "npm run build:front && NODE_ENV=prod npm run dev",
+    "start": "npm run build"
   },
   "keywords": [
     "test",
