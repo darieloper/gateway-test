@@ -1,7 +1,7 @@
 const App = require('./app');
 const GatewayController = require('./http/controllers/gateway.controller');
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT;
 
 const app = new App(port, [
   new GatewayController()
