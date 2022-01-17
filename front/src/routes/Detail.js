@@ -41,9 +41,7 @@ export default function GatewayDetail() {
     })
   }
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useEffect(fetchData(), [])
 
   const DeviceRowsData = () => {
     return (gatewayData || {devices: []}).devices.map((device, index) => (
