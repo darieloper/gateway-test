@@ -43,7 +43,7 @@ export default function GatewayDetail() {
 
   useEffect(() => {
     fetchData()
-  }, [id, fetchData])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const DeviceRowsData = () => {
     return (gatewayData || {devices: []}).devices.map((device, index) => (
