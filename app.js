@@ -12,10 +12,13 @@ module.exports = class App {
     this.port = port;
     this.app = express();
     this.controllers = controllers || [];
+    console.log('----------------------constructor-----------------');
 
     this.initializeMiddlewares();
     this.initializeControllers();
+    console.log('-----------------before---------------------------');
     this.initializeStaticResources();
+    console.log('-----------------after-----------------------------');
   }
 
   initializeMiddlewares() {
