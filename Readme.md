@@ -24,11 +24,12 @@ from [here](https://github.com/pullr3qu35t/gateway-test/archive/refs/heads/main.
   
 ### Environment Variables
 - You can provide your own connection string for mongodb server with this command `MONGODB_CONNECTION="mongodb://<server>:<port>/<database>" npm run start:all`<br> *(Ex: `MONGODB_CONNECTION="mongodb://localhost:27017/musala" npm run start:all`)*
-<br><br>
+
+
 - By default It's expecting that your Database name would be: **node-test-project** and your collection: **gateways**
-<br><br>  
+
 - You can provide your MongoDB collection name with this: `MONGODB_COLLECTION="<collection_name>" npm run start:all`<br>
-<br>
+
 - If you want to increase or reduce the maximum of devices per gateway validation, just run `MAX_DEVICES_PER_GATEWAY=<devices_max> <npm_script>` *(Ex: `MAX_DEVICES_PER_GATEWAY=3 npm run start:all`)*
-<br><br>
- - *You can use at the same command multiples env vars like MONGODB_CONNECTION, NODE_ENV, MONGODB_COLLECTION, MAX_DEVICES_PER_GATEWAY (Ex: VAR_1="valor" VAR_2="valor" <npm_script>)*
+
+- *You can use at the same command multiples env vars like MONGODB_CONNECTION, NODE_ENV, MONGODB_COLLECTION, MAX_DEVICES_PER_GATEWAY (Ex: VAR_1="valor" VAR_2="valor" <npm_script>)*
