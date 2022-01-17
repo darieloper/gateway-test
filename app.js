@@ -28,7 +28,7 @@ module.exports = class App {
   }
 
   initializeStaticResources() {
-    if (process.env.NODE_ENV !== 'prod') {
+    if (!'production'.includes(process.env.NODE_ENV)) {
       return
     }
 
