@@ -28,9 +28,10 @@ module.exports = class App {
   }
 
   initializeStaticResources() {
-    if (!'production'.includes(process.env.NODE_ENV)) {
+    console.log(process.env.NODE_ENV);
+    /*if (!'production'.includes(process.env.NODE_ENV)) {
       return
-    }
+    }*/
 
     this.app.use(express.static(path.join(__dirname, 'front', 'build')));
 
