@@ -4,6 +4,7 @@
   "description": "gateways test project",
   "main": "index.js",
   "scripts": {
+    "prebuild": "cd ./front && npm i",
     "dev": "node ./index.js",
     "watch": "npx nodemon ./index.js",
     "seed": "node ./database/seed.js",
