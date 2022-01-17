@@ -37,7 +37,7 @@ module.exports = class App {
     this.app.use(express.static(path.join(__dirname, 'front', 'build')));
 
     console.log('starting redirecting for react router');
-    this.app.get('*', function (req, res) {
+    this.app.get('/*', function (req, res) {
       res.sendFile(path.join(__dirname, 'front', 'build', 'index.html'));
     });
 
