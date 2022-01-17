@@ -22,7 +22,7 @@ export default function CreateGateway({
     vendor: '',
     online: true
   }
-  const ipValidPattern = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
+  const ipValidPattern = '^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$' // eslint-disable-line no-useless-escape
   const [sending, setSending] = useState(false)
   const [validated, setValidated] = useState(false)
   const [formData, setFormData] = useState(initialFormState)
