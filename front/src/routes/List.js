@@ -16,8 +16,6 @@ export default function GatewayList() {
 
   const hideLoading = () => setLoading(false)
 
-  useEffect(fetchData, [])
-
   const fetchData = () => {
     axios.get(baseUrl).then(({data}) => {
       hideLoading()
@@ -32,6 +30,8 @@ export default function GatewayList() {
       console.log(error)
     })
   }
+  
+  useEffect(fetchData, [])
 
   const handleOnCreateGateway = () => {
     toast.success('A new Gateway was created successfully')
