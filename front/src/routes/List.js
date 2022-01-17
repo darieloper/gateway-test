@@ -16,9 +16,7 @@ export default function GatewayList() {
 
   const hideLoading = () => setLoading(false)
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useEffect(fetchData, [])
 
   const fetchData = () => {
     axios.get(baseUrl).then(({data}) => {
